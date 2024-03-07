@@ -1,40 +1,45 @@
-**Repo Owner:** Ben Guaraldi [@benguaraldi](https://github.com/benguaraldi)
+# DHIS2 Rich Text and Video Dashboard Widget
 
-# Landing Page app
+[![Tests](https://github.com/pepfar-datim/dashboard-information-widget/actions/workflows/test.yml/badge.svg)](https://github.com/pepfar-datim/dashboard-information-widget/actions)
 
-The Landing Page app is a DHIS2 app for displaying a single dashboard as the landing page for all users of a given DHIS2 instance. This dashboard can allow users to more easily get to where they want to go in DHIS2.
+**Repo Owner:** Sarah Searle [@ssearle-bao](https://github.com/ssearle-bao)
 
-## Installation
+## Overview
 
-[Install the app via the App Hub](https://apps.dhis2.org/app/30a4b86f-882c-490a-b6e1-0d730bfa53ad) or by uploading into the DHIS2 App Management app the zip either from [our releases](https://github.com/pepfar-datim/landing-page-app/releases) or from `npm run build`.
+The DHIS2 Rich Text and Video Dashboard Widget is a WYSIWYG editor that allows for the creation of rich text content in DHIS2 dashboards. Note that internally to DHIS2, the widget is named `Information`, as its name appears on the dashboard on versions of DHIS2 prior to 2.36.
 
-## Adding content to the Landing Page app
+<img width="900" alt="DHIS2 Rich Text and Video Dashboard Widget example" src="https://github.com/pepfar-datim/dashboard-information-widget/blob/main/docs/images/DHIS2RichTextAndVideoDashboardWidgetExample.jpg">
 
-By default, the Landing Page app will be blank. To add content, follow these steps:
+## Demo
 
-1. Go to the `Landing Page` app—this will add the Landing Page app's dashboard to your system
-2. Go to the `Dashboards` app and find the `Landing Page` dashboard
-3. Edit it just as you would a regular dashboard
+[![Demo video for DHIS2 Rich Text and Video Dashboard Widget](https://github.com/pepfar-datim/dashboard-information-widget/blob/main/docs/images/DHIS2RichTextAndVideoDashboardWidgetDemo.jpg)](https://vimeo.com/567442556)
 
-Note that the Landing Page app does not support any widgets except for the [Rich Text and Video Dashboard Widget](https://github.com/pepfar-datim/dashboard-information-widget/), which allows you to create rich text with links, videos, and other advanced content.
+## Installation on DHIS2
 
-## Defaulting to the Landing Page app
+1. [Install the app via the App Hub](https://apps.dhis2.org/app/96d39ad5-bd25-45b1-ae8c-165f4a1854a9) or by uploading into the DHIS2 App Management app the zip either from [our releases](https://github.com/pepfar-datim/dashboard-information-widget/releases) or from `npm run build`
+2. Be sure to grant access to the app to all users, or they will not see the content. To do this, go to DHIS2 Users > User role > [role] > Apps > select `Information app`. Make sure to do this on enough roles to give all users access. (For example, if all users on your system have a Guest or Read Only role, giving the permission to that role is sufficient.)
+3. From the Dashboards page of your DHIS2 installation, edit a dashboard. (If you do not have any dashboards, you will need to add a new dashboard.)
+4. Click `Search for items to add to this dashboard`, and select `Information` under `Apps`.
+5. Click the Edit button on the Information widget to create content.
+6. If you would like to restrict the creation and editing of Information content to superusers, go to the Datastore Manager, select the `dashboard-information` namespace, then the `configuration` key and check the `Only open to superusers` box. (This namespace and key will only be present after you have created an  Information widget.)
+7. If the widget shows the message `Refused to connect` after you add it to the dashboard, [follow these instructions to fix](https://github.com/pepfar-datim/dashboard-information-widget/blob/main/docs/RefusedToConnect.md).
 
-After installation, you may wish to make the Landing Page app the default app whenever a user logs into your DHIS2 instance.  To do this, follow these steps:
+## Local Build and Development
 
-1. Go to the `System Settings` app
-2. Choose `Appearance` in the left menu
-3. Find the `Start page` dropdown
-4. Choose `Landing Page` from the dropdown
+1. Install all dependencies: `npm i`
+2. Setup your servers URLs in `serverConfig.dev.json` and `serverConfig.prod.json`
+3. Edit `manifest.webapp` to specify name of the app for your DHIS2 instance
+4. Run locally as `npm start`
+5. Build for production locally as `npm run build`
 
-## Menu setup
+## Nested Menu
 
-Our initial use case with this app was to combine it with the [Rich Text and Video Dashboard Widget](https://github.com/pepfar-datim/dashboard-information-widget/), which allows the creation of a nested menu to navigate a DHIS2 site.
+The DHIS2 Rich Text and Video Dashboard Widget [provides the ability to create nested menus, instructions for which can be found by following this link](https://github.com/pepfar-datim/dashboard-information-widget/blob/main/docs/NestedMenu.md).
 
-[More information about nested menus can be found here.](https://github.com/pepfar-datim/dashboard-information-widget/blob/main/docs/NestedMenu.md)
+## Issues, Features, etc.
 
-## What the app doesn't do
+Please create [an issue](https://github.com/pepfar-datim/dashboard-information-widget/issues) or [a pull request](https://github.com/pepfar-datim/dashboard-information-widget/pulls).
 
-As mentioned above, the Landing Page app currently only shows the [Rich Text and Video Dashboard Widget](https://github.com/pepfar-datim/dashboard-information-widget/),
+## Credits
 
-Also, all users see the same dashboard when they login. There is no way to show different dashboards depending on the user's roles and permissions.
+Developed by [@jakub-bao](https://github.com/jakub-bao) and [@plinnegan](https://github.com/plinnegan).
