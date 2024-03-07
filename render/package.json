@@ -1,0 +1,17 @@
+{
+  "name": "render",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "proxy": "node_modules/http-server/bin/http-server -p 3000 -P https://dev.datim.org/ --username bao-admin --password Kiev18-Wages24",
+    "proxy2": "node_modules/http-server/bin/http-server -p 3000 -P https://dev.datim.org/api --proxy-options.headers '{\"Auth\": \"Basic YmFvLWFkbWluOktpZXYxOC1XYWdlczI0\"}'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}
