@@ -1,2 +1,2 @@
-edit/node_modules
-render/node_modules
+*/node_modules
+*/.idea
