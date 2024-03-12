@@ -1,4 +1,5 @@
 import {defineConfig, loadEnv, ProxyOptions, ServerOptions} from 'vite'
+import minifyHtmlPlugin from "./plugin/minifyHtml.plugin";
 
 let auth;
 try {
@@ -31,6 +32,7 @@ const server:ServerOptions = {
 }
 
 export default defineConfig({
+    plugins: [minifyHtmlPlugin()],
     base: '',
     server,
     preview: server,
