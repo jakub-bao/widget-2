@@ -1,5 +1,4 @@
 import {initDom, MapOf, mockFetch} from "./test.service.ts";
-import {renderContent} from "../services/renderContent.service.ts";
 import {screen} from '@testing-library/dom'
 
 const dataStore:MapOf<object> = {
@@ -11,6 +10,6 @@ const dataStore:MapOf<object> = {
 test(`1 > Render Widget`, async ()=>{
     mockFetch(dataStore)
     initDom()
-    await renderContent()
+    await import('../index.ts')
     screen.getByText('Widget content')
 })
