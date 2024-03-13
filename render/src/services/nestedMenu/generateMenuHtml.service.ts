@@ -1,5 +1,11 @@
 import {NestedMenu, SubMenu} from "./nestedMenu.types.ts";
 
+declare global {
+    interface Window { NestedMenu: any; }
+}
+
+window.NestedMenu = {}
+
 type SelectFunction = (value:string)=>void;
 
 const keyStyle = `
@@ -16,17 +22,16 @@ function parseKey(rawKey:string):[string, string]{
     ]
 }
 
-window.selectFunctions = {}
-
-function renderKey(key:string, level: number, onSelect: SelectFunction):string{
+function renderKey(key:string, level: number, isNode:boolean, onSelect: SelectFunction):string{
     const [name, style] = parseKey(key)
-    window.selectFunctions[`onSelect_${level}`] = onSelect
+    window.NestedMenu[`selectLevel_${level}`] = onSelect
+    if (!name) return ``
     return `<div 
         style="${style};${keyStyle}" 
         class="menuItem"
-        onClick="window.selectFunctions.onSelect_${level}('${key}')"
+        onClick="window.NestedMenu.selectLevel_${level}('${key}')"
     >
-            ${name}
+            ${name}${isNode?' ↗':''}
     </div>`
 }
 
@@ -38,18 +43,18 @@ const subMenuDefaultStyle = `
     background-color: white;
     overflow-y: auto;
     border-radius: 5px;
-    height: 100%;
+    // height: 100%;
 `
 
 
 export function assembleSubMenu(subMenu:SubMenu, level:number):void{
     const onSelect = (key:string)=>{
         const value = subMenu[key]
-        if (typeof value === 'string') console.log('clicked',value)
+        if (typeof value === 'string') window.open(value, '_blank')?.focus();
         else assembleSubMenu(value,level+1)
     }
     const html =  `<div style="${subMenuDefaultStyle}">
-        ${Object.keys(subMenu).map((key:string)=>renderKey(key, level, onSelect)).join('')}
+        ${Object.keys(subMenu).map((key:string)=>renderKey(key, level, typeof subMenu[key]==='string',onSelect)).join('')}
     </div>
     <div id="subMenu_${level+1}" style="display: flex;"></div>
     `
@@ -62,6 +67,6 @@ async function render(where:string, what: string):Promise<void>{
 }
 
 export function initializeNestedMenu({style, subMenu}:NestedMenu):void{
-    render('nestedMenu',`<div style="${style}"><div id="subMenu_0" style="display: flex;"></div></div>`)
+    render('nestedMenu',`<div id="subMenu_0" style="display: flex; ${style}"></div>`)
     assembleSubMenu(subMenu, 0)
 }

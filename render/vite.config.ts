@@ -28,6 +28,7 @@ const server:ServerOptions = {
     proxy: {
         '/api': proxy,
         '/dhis-web-commons': proxy,
+        '/dhis-web-dashboard': proxy
     }
 }
 
