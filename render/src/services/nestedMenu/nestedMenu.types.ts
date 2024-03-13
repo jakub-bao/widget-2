@@ -1,3 +1,5 @@
+export const menuRe = /<pre.*>(.+)<\/pre>/s
+
 export type SubMenu = {
     [key:string]:string|SubMenu
 };

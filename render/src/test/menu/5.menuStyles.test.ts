@@ -1,5 +1,5 @@
-import {initDom, MapOf, mockFetch} from "../test.service.ts";
-import {fireEvent, screen} from '@testing-library/dom'
+import {initDom, mockFetch} from "../test.service.ts";
+import {screen} from '@testing-library/dom'
 import {dataStore, explore} from "./menu.shared.ts";
 import {expect} from "vitest";
 

@@ -46,7 +46,7 @@ const subMenuDefaultStyle = `
 `
 
 
-export function assembleSubMenu(subMenu:SubMenu, level:number):void{
+function assembleSubMenu(subMenu:SubMenu, level:number):void{
     const onSelect = (key:string)=>{
         const value = subMenu[key]
         if (typeof value === 'string') window.open(value, '_blank')?.focus();
