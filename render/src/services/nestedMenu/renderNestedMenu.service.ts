@@ -1,4 +1,6 @@
 import {NestedMenu, SubMenu} from "./nestedMenu.types.ts";
+import './nestedMenu.css'
+import {adjustBorders} from "./adjustBorders.service.ts";
 
 declare global {
     interface Window { NestedMenu: any; }
@@ -43,7 +45,6 @@ const subMenuDefaultStyle = `
     background-color: white;
     overflow-y: auto;
     border-radius: 5px;
-    // height: 100%;
 `
 
 
@@ -53,20 +54,22 @@ export function assembleSubMenu(subMenu:SubMenu, level:number):void{
         if (typeof value === 'string') window.open(value, '_blank')?.focus();
         else assembleSubMenu(value,level+1)
     }
-    const html =  `<div style="${subMenuDefaultStyle}">
+    const html =  `<div style="${subMenuDefaultStyle}" id="subMenu_${level}" class="${level>0?'appear':''}">
         ${Object.keys(subMenu).map((key:string)=>renderKey(key, level, typeof subMenu[key]==='string',onSelect)).join('')}
     </div>
-    <div id="subMenu_${level+1}" style="display: flex;"></div>
+    <div id="subMenuRoot_${level+1}" style="display: flex;"></div>
     `
-    render(`subMenu_${level}`, html)
+    render(`subMenuRoot_${level}`, html)
 }
+
 
 async function render(where:string, what: string):Promise<void>{
     await new Promise(resolve=>setTimeout(resolve,0))
     document.getElementById(where)!.innerHTML = what
+    adjustBorders()
 }
 
-export function initializeNestedMenu({style, subMenu}:NestedMenu):void{
-    render('nestedMenu',`<div id="subMenu_0" style="display: flex; ${style}"></div>`)
+export async function renderNestedMenu({style, subMenu}:NestedMenu):Promise<void>{
+    render('nestedMenu',`<div id="subMenuRoot_0" style="display: flex; ${style}"></div>`)
     assembleSubMenu(subMenu, 0)
 }
