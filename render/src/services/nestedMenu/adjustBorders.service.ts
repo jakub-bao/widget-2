@@ -4,7 +4,8 @@ function onlyOne(first:HTMLElement){
     first.style.border = '1px solid black'
 }
 export function adjustBorders(){
-    const menus = document.querySelectorAll<HTMLElement>(`[id^='subMenu_']`)!
+    const menus = document.querySelectorAll<HTMLElement>(`[id^='subMenu_']`)
+    if (menus.length===0) return
     const first = menus[0]
     const last = menus[menus.length-1]
 

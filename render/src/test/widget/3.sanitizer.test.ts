@@ -1,4 +1,4 @@
-import {sanitize} from "../services/sanitize.service.ts";
+import {sanitize} from "../../services/sanitize.service.ts";
 import {expect} from "vitest";
 
 

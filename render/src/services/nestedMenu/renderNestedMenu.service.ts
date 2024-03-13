@@ -32,9 +32,7 @@ function renderKey(key:string, level: number, isNode:boolean, onSelect: SelectFu
         style="${style};${keyStyle}" 
         class="menuItem"
         onClick="window.NestedMenu.selectLevel_${level}('${key}')"
-    >
-            ${name}${isNode?' ↗':''}
-    </div>`
+    >${name}${isNode?' ↗':''}</div>`
 }
 
 const subMenuDefaultStyle = `
