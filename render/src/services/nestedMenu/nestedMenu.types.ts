@@ -4,6 +4,5 @@ export type SubMenu = {
 
 export type NestedMenu = {
     style?: string;
-    selected: string[];
     subMenu: SubMenu;
 }
