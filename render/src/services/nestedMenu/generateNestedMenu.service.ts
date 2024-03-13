@@ -1,12 +1,18 @@
 import {NestedMenu, SubMenu} from "./nestedMenu.types.ts";
 import {getMenuObect} from "./getMenuObect.service.ts";
-import {generateMenuHtml} from "./generateMenuHtml.service.ts";
+import {initializeNestedMenu} from "./generateMenuHtml.service.ts";
 
-export function generateNestedMenu(content:string):string{
-    if (!content.includes('nestedMenu')||!content.includes('pre')) return content
-    const menuRe = /<pre.*>(.+)<\/pre>/s
+const menuRe = /<pre.*>(.+)<\/pre>/s
+
+function getMenuSrc(content:string):NestedMenu{
     const nestedMenuSrc = menuRe.exec(content)![1]
     const subMenu:SubMenu = getMenuObect(nestedMenuSrc)
     const style = /<pre.+style="(.+)"/.exec(content)?.[1]||''
-    return content.replace(menuRe, generateMenuHtml({subMenu, style}))
+    return {subMenu, style}
+}
+export function generateNestedMenu(content:string):string{
+    if (!content.includes('nestedMenu')||!content.includes('pre')) return content
+    const nestedMenu:NestedMenu = getMenuSrc(content)
+    initializeNestedMenu(nestedMenu)
+    return content.replace(menuRe, '<div id="nestedMenu"></div>')
 }
